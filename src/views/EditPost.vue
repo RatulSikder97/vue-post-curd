@@ -158,7 +158,13 @@ export default {
     },
     savePost() {
       this.showModal = false;
-      this.$router.go(-1);
+      store.createCat = false;
+
+      let posts = store.posts;
+      localStorage.setItem("posts", JSON.stringify(posts));
+
+      let path = "/" + this.$route.params.id;
+      this.$router.push(path);
     },
   },
   computed: {

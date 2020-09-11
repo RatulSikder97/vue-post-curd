@@ -72,5 +72,8 @@ html {
     background: #92b2e6;
     border-radius: 5px;
   }
+  html {
+    font-size: 60%;
+  }
 }
 </style>

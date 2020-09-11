@@ -20,7 +20,7 @@
     <button
       type="button"
       class="btn btn-danger ml-2 mb-2"
-      @click="deletePost(post[0].id)"
+      @click="deletePost(post[0])"
     >
       Delete
     </button>
@@ -34,7 +34,17 @@ export default {
     return {};
   },
 
-  methods: {},
+  methods: {
+    deletePost(post) {
+      let posts = store.posts;
+
+      posts.splice(posts.indexOf(post), 1);
+      store.posts = posts || [];
+      console.log(store.posts);
+      localStorage.setItem("posts", JSON.stringify(store.posts));
+      this.$router.push("/");
+    },
+  },
   computed: {
     post() {
       return store.posts.filter((post) => {

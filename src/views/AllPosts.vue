@@ -1,11 +1,12 @@
 <template>
   <div>
-    <div class="alert alert-danger m-4 h3" role="alert" v-if="!posts.length">
-      <i class="text-dark"
-        >Yout Have no post.
-        <span class="text-success"
+    <div class="alert alert-secondary m-4 h3" role="alert" v-if="!posts.length">
+      <i class="text-danger"
+        ><span>Ooops!! </span>
+        Yout Have no post.
+        <span class="text-info"
           >Click on
-          <span class="bg-info text-dark rounded p-2"
+          <span class=" rounded text-success p-1 mt-2"
             >Create New Post</span
           ></span
         >
