@@ -61,7 +61,7 @@ export default {
 
     closeModal() {
       this.showModal = false;
-      this.$router.go(0);
+      store.createCat = false;
     },
     createCategory() {
       let options = store.options;
@@ -69,6 +69,7 @@ export default {
       store.options = options;
       this.$emit("createdCat", this.cats);
       this.showModal = false;
+      store.createCat = false;
     },
   },
   computed: {},

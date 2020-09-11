@@ -4,7 +4,7 @@
     <Modal v-if="showModal">
       <!-- Header -->
       <h3 slot="header" class="modal-title">
-        Create Post
+        Edit Post
       </h3>
 
       <!-- modalbody -->
@@ -19,7 +19,7 @@
             placeholder="Enter Post Title"
             aria-describedby="helpId"
             required
-            v-model="newPost.title"
+            v-model="post.title"
           />
         </div>
 
@@ -31,7 +31,7 @@
             id="content"
             rows="3"
             required
-            v-model="newPost.content"
+            v-model="post.content"
           ></textarea>
         </div>
 
@@ -41,7 +41,7 @@
             Categories:
             <span
               class="badge badge-primary ml-2"
-              v-for="(value, i) in values"
+              v-for="(value, i) in post.categories"
               :key="i"
               >{{ value }}</span
             >
@@ -75,7 +75,7 @@
                     type="checkbox"
                     class="form-check-input"
                     :value="option"
-                    v-model="values"
+                    v-model="post.categories"
                   />
                   {{ option }}
                 </label>
@@ -105,9 +105,9 @@
           type="button"
           class="btn btn-primary ml-2"
           data-dismiss="modal"
-          @click="createPost()"
+          @click="savePost()"
         >
-          Create
+          Save
         </button>
       </div>
     </Modal>
@@ -129,7 +129,7 @@ export default {
       showModal: true,
 
       values: [],
-      newPost: { title: "", content: "", categories: [] },
+      editedPost: { title: "", content: "", categories: [] },
     };
   },
   methods: {
@@ -140,31 +140,25 @@ export default {
       store.createCat = !store.createCat;
     },
     getNewCat(val) {
-      this.values.unshift(val);
+      this.post.categories.unshift(val);
     },
     openModal() {
       this.showModal = true;
+    },
+    closeModal() {
+      this.showModal = false;
+      store.createCat = false;
+      let path = "/" + this.$route.params.id;
+
+      this.$router.push(path);
     },
     getSelected(options) {
       console.log(options[0]);
       this.newPost.categories = options;
     },
-    closeModal() {
+    savePost() {
       this.showModal = false;
-      this.$router.push({ path: "/" });
-    },
-    createPost() {
-      if (this.newPost.title !== "" && this.newPost.content !== "") {
-        let posts = store.posts;
-        this.newPost.id = posts.length + 1;
-        this.newPost.categories = this.values;
-        posts.unshift({ ...this.newPost });
-        store.posts = posts;
-
-        localStorage.setItem("posts", JSON.stringify(posts));
-
-        this.$router.push({ path: "/" });
-      }
+      this.$router.go(-1);
     },
   },
   computed: {
@@ -173,6 +167,12 @@ export default {
     },
     showInsideModal() {
       return store.createCat;
+    },
+    post() {
+      let post = store.posts.filter((post) => {
+        return post.id == this.$route.params.id;
+      });
+      return post[0];
     },
   },
 };
