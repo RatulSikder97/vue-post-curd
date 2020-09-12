@@ -1,24 +1,8 @@
-# simple-crud
+# POST CRUD
 
-## Project setup
-```
-npm install
-```
+**Simple CRUD for two resources:**
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+- POSTS
+- CATEGORIES
 
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+### To visit the site [CLICK HERE](https://post-cats-crud.netlify.app/).
